@@ -8,12 +8,13 @@ A real-time data engineering project that ingests live stock market data from Ya
 
 ### Dashboard Overview
 
-![Dashboard Overview](docs/dashboard-overview.png)
+![Dashboard Overview](docs/dashboard-overview-1.png)
+![Dashboard Overview](docs/dashboard-overview-2.png)
+![Dashboard Overview](docs/dashboard-overview-3.png)
 
 ### Interactive Filtering
 
 ![Dashboard Filter](docs/dashboard-filters-1.png)
-![Dashboard Filter](docs/dashboard-filters-2.png)
 
 ---
 
