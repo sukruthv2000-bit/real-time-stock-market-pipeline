@@ -1,12 +1,19 @@
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.append(str(PROJECT_ROOT))
+from src.utils.config_loader import load_config
 import pandas as pd
 import streamlit as st
 import plotly.express as px
 from pyspark.sql import SparkSession
 
 
-GOLD_PATH = "data/gold/daily_stock_summary"
-SILVER_PATH = "data/silver/stock_metrics"
+config = load_config()
 
+GOLD_PATH = config["paths"]["gold"]
+SILVER_PATH = config["paths"]["silver"]
 
 st.set_page_config(
     page_title="Real-Time Stock Market Analytics",

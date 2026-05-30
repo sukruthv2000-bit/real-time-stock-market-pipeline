@@ -1,3 +1,9 @@
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.append(str(PROJECT_ROOT))
+from src.utils.config_loader import load_config
 import json
 import time
 from datetime import datetime, timezone
@@ -6,11 +12,12 @@ import yfinance as yf
 from kafka import KafkaProducer
 
 
-KAFKA_TOPIC = "stock-prices"
-KAFKA_BOOTSTRAP_SERVER = "localhost:9092"
+config = load_config()
 
-TICKERS = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
-
+KAFKA_TOPIC = config["kafka"]["topic"]
+KAFKA_BOOTSTRAP_SERVER = config["kafka"]["bootstrap_server"]
+TICKERS = config["stocks"]["tickers"]
+POLL_INTERVAL_SECONDS = config["stocks"]["poll_interval_seconds"]
 
 def create_producer():
     return KafkaProducer(
@@ -58,7 +65,7 @@ def main():
                 print(f"Error for {ticker}: {e}")
 
         producer.flush()
-        time.sleep(60)
+        time.sleep(POLL_INTERVAL_SECONDS)
 
 
 if __name__ == "__main__":

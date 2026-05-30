@@ -1,11 +1,18 @@
+mport sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.append(str(PROJECT_ROOT))
+from src.utils.config_loader import load_config
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, lag, avg, round, when
 from pyspark.sql.window import Window
 
 
-BRONZE_PATH = "data/bronze/stock_prices"
-SILVER_PATH = "data/silver/stock_metrics"
+config = load_config()
 
+BRONZE_PATH = config["paths"]["bronze"]
+SILVER_PATH = config["paths"]["silver"]
 
 spark = (
     SparkSession.builder

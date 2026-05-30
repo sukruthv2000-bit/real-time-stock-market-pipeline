@@ -1,14 +1,21 @@
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.append(str(PROJECT_ROOT))
+from src.utils.config_loader import load_config
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json, to_timestamp, current_date
 from pyspark.sql.types import StructType, StructField, StringType, DoubleType, LongType
 
 
-KAFKA_BOOTSTRAP_SERVER = "localhost:9092"
-KAFKA_TOPIC = "stock-prices"
+config = load_config()
 
-BRONZE_OUTPUT_PATH = "data/bronze/stock_prices"
-CHECKPOINT_PATH = "data/bronze/checkpoints/stock_prices"
+KAFKA_BOOTSTRAP_SERVER = config["kafka"]["bootstrap_server"]
+KAFKA_TOPIC = config["kafka"]["topic"]
 
+BRONZE_OUTPUT_PATH = config["paths"]["bronze"]
+CHECKPOINT_PATH = config["paths"]["checkpoint"]
 
 schema = StructType([
     StructField("ticker", StringType(), True),
