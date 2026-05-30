@@ -4,6 +4,17 @@
 
 A real-time data engineering project that ingests live stock market data from Yahoo Finance, streams events through Apache Kafka, processes data using Spark Structured Streaming, stores data in a multi-layered lakehouse architecture (Bronze, Silver, Gold), and visualizes analytics through Streamlit.
 
+## Dashboard Preview
+
+### Dashboard Overview
+
+![Dashboard Overview](docs/dashboard-overview.png)
+
+### Interactive Filtering
+
+![Dashboard Filter](docs/dashboard-filters-1.png)
+![Dashboard Filter](docs/dashboard-filters-2.png)
+
 ---
 
 ## Architecture
