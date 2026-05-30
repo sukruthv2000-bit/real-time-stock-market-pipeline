@@ -3,7 +3,10 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(PROJECT_ROOT))
+
 from src.utils.config_loader import load_config
+from src.utils.logger import get_logger
+
 import json
 import time
 from datetime import datetime, timezone
@@ -12,6 +15,7 @@ import yfinance as yf
 from kafka import KafkaProducer
 
 
+logger = get_logger(__name__)
 config = load_config()
 
 KAFKA_TOPIC = config["kafka"]["topic"]
@@ -19,7 +23,10 @@ KAFKA_BOOTSTRAP_SERVER = config["kafka"]["bootstrap_server"]
 TICKERS = config["stocks"]["tickers"]
 POLL_INTERVAL_SECONDS = config["stocks"]["poll_interval_seconds"]
 
+
 def create_producer():
+    logger.info("Creating Kafka producer")
+
     return KafkaProducer(
         bootstrap_servers=KAFKA_BOOTSTRAP_SERVER,
         value_serializer=lambda v: json.dumps(v).encode("utf-8"),
@@ -31,6 +38,7 @@ def fetch_stock_price(ticker):
     data = stock.history(period="1d", interval="1m")
 
     if data.empty:
+        logger.warning(f"No stock data returned for {ticker}")
         return None
 
     latest = data.tail(1).iloc[0]
@@ -48,7 +56,7 @@ def fetch_stock_price(ticker):
 
 def main():
     producer = create_producer()
-    print("Stock producer started...")
+    logger.info("Stock producer started")
 
     while True:
         for ticker in TICKERS:
@@ -57,14 +65,16 @@ def main():
 
                 if event:
                     producer.send(KAFKA_TOPIC, event)
-                    print(f"Sent: {event}")
+                    logger.info(f"Sent stock event: {event}")
                 else:
-                    print(f"No data for {ticker}")
+                    logger.warning(f"No data for ticker: {ticker}")
 
-            except Exception as e:
-                print(f"Error for {ticker}: {e}")
+            except Exception:
+                logger.exception(f"Error while processing ticker: {ticker}")
 
         producer.flush()
+        logger.info("Kafka producer flushed messages")
+
         time.sleep(POLL_INTERVAL_SECONDS)
 
 
