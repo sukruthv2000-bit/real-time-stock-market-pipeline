@@ -1,0 +1,2 @@
+v1
+{"path":"file:///Users/sukruth/Projects/real-time-stock-market-pipeline/data/bronze/stock_prices/event_date=2026-05-31/ticker=AAPL/part-00000-ae83049d-be68-4b9f-83e2-b48c60325008.c000.snappy.parquet","size":2267,"isDir":false,"modificationTime":1780169613569,"blockReplication":1,"blockSize":33554432,"action":"add"}

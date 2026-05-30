@@ -1,0 +1,4 @@
+v1
+{"path":"file:///Users/sukruth/Projects/real-time-stock-market-pipeline/data/bronze/stock_prices/event_date=2026-05-31/ticker=AMZN/part-00000-c5bba290-4a92-436b-8c27-a216000cc34a.c000.snappy.parquet","size":2266,"isDir":false,"modificationTime":1780169734531,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///Users/sukruth/Projects/real-time-stock-market-pipeline/data/bronze/stock_prices/event_date=2026-05-31/ticker=GOOGL/part-00000-cb0f1fc5-7540-4d0b-8d4f-4a94a211ae54.c000.snappy.parquet","size":2266,"isDir":false,"modificationTime":1780169734545,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///Users/sukruth/Projects/real-time-stock-market-pipeline/data/bronze/stock_prices/event_date=2026-05-31/ticker=MSFT/part-00000-f31e8e43-fb36-412e-a6c5-1baea0b02ad5.c000.snappy.parquet","size":2267,"isDir":false,"modificationTime":1780169734559,"blockReplication":1,"blockSize":33554432,"action":"add"}

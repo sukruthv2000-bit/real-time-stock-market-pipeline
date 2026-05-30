@@ -1,0 +1,2 @@
+v1
+{"path":"file:///Users/sukruth/Projects/real-time-stock-market-pipeline/data/bronze/stock_prices/event_date=2026-05-31/ticker=TSLA/part-00000-6f2be153-201a-414a-b068-397dc91b6cfa.c000.snappy.parquet","size":2266,"isDir":false,"modificationTime":1780169734760,"blockReplication":1,"blockSize":33554432,"action":"add"}

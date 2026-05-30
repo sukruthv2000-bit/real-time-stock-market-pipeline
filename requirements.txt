@@ -1,0 +1,7 @@
+pandas
+yfinance
+kafka-python
+pyspark
+streamlit
+plotly
+python-dotenv
