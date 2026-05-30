@@ -1,18 +1,21 @@
 version: "3.8"
 
+x-airflow-common: &airflow-common
+  image: apache/airflow:2.9.3-python3.11
+  environment:
+    AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__WEBSERVER__SECRET_KEY: "stock_pipeline_secret"
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./:/opt/airflow/project
+
 services:
-  airflow:
-    image: apache/airflow:2.9.3-python3.11
-    container_name: stock-pipeline-airflow
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: stock-pipeline-airflow-webserver
     ports:
       - "8080:8080"
-    environment:
-      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
-      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      AIRFLOW__WEBSERVER__SECRET_KEY: "stock_pipeline_secret"
-    volumes:
-      - ./airflow/dags:/opt/airflow/dags
-      - ./:/opt/airflow/project
     command: >
       bash -c "
       airflow db migrate &&
@@ -24,4 +27,13 @@ services:
       --role Admin
       --email admin@example.com || true &&
       airflow webserver
+      "
+
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: stock-pipeline-airflow-scheduler
+    command: >
+      bash -c "
+      airflow db migrate &&
+      airflow scheduler
       "
