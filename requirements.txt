@@ -5,3 +5,4 @@ pyspark
 streamlit
 plotly
 python-dotenv
+pyyaml

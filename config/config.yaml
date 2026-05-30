@@ -1,0 +1,18 @@
+kafka:
+  bootstrap_server: "localhost:9092"
+  topic: "stock-prices"
+
+stocks:
+  tickers:
+    - AAPL
+    - MSFT
+    - GOOGL
+    - AMZN
+    - TSLA
+  poll_interval_seconds: 60
+
+paths:
+  bronze: "data/bronze/stock_prices"
+  silver: "data/silver/stock_metrics"
+  gold: "data/gold/daily_stock_summary"
+  checkpoint: "data/bronze/checkpoints/stock_prices"
